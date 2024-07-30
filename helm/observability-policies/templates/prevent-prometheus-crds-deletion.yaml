@@ -1,0 +1,31 @@
+{{- if not .Values.disabled }}
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    policies.kyverno.io/title: Prevent Prometheus Operator CRDs deletion
+    policies.kyverno.io/subject: CRD
+  name: prevent-prometheus-operator-crd-deletion
+spec:
+  admission: true
+  background: true
+  rules:
+  - match:
+      any:
+      - resources:
+          kinds:
+          - CustomResourceDefinition
+          names:
+          - "*.monitoring.coreos.com"
+    name: prevent-prometheus-operator-crd-deletion
+    validate:
+      message: "This resource is preventing prometheus-operator CRDs deletion."
+      deny:
+        conditions:
+          any:
+            - key: {{`"{{request.operation || 'BACKGROUND'}}"`}}
+              operator: AnyIn
+              value:
+              - DELETE
+  validationFailureAction: Enforce
+{{- end }}
