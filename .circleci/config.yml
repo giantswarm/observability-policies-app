@@ -1,18 +1,19 @@
 version: 2.1
 orbs:
-  architect: giantswarm/architect@5.1.1
+  architect: giantswarm/architect@5.3.1
 
 workflows:
-  package-and-push-chart-on-tag:
+  version: 2
+  build:
     jobs:
       - architect/push-to-app-catalog:
           context: architect
-          executor: app-build-suite
-          name: package-and-push-chart
-          app_catalog: giantswarm-playground-catalog
-          app_catalog_test: giantswarm-playground-test-catalog
-          chart: "{APP-NAME}"
-          # Trigger job on git tag.
+          executor: "app-build-suite"
+          name: "package and push to default catalog"
+          app_catalog: "default-catalog"
+          app_catalog_test: "default-test-catalog"
+          chart: "observability-policies"
           filters:
+            # Trigger the job also on git tag.
             tags:
               only: /^v.*/
