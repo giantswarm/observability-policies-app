@@ -21,7 +21,8 @@ spec:
           names:
           {{ range .Values.resources }}
           - {{ . | quote }}
-          {{ end }}
+          {{- end }}
+          {{- end }}
     name: prevent-prometheus-operator-crd-deletion
     validate:
       message: "This resource is preventing prometheus-operator CRDs deletion."
