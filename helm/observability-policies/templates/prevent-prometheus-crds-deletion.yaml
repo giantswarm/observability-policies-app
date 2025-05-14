@@ -19,7 +19,7 @@ spec:
           - CustomResourceDefinition
           {{- if .Values.resources }}
           names:
-          {{ range .Values.resources }}
+          {{- range .Values.resources }}
           - {{ . | quote }}
           {{- end }}
           {{- end }}
