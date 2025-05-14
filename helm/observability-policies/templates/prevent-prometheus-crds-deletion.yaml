@@ -5,6 +5,8 @@ metadata:
   annotations:
     policies.kyverno.io/title: Prevent Prometheus Operator CRDs deletion
     policies.kyverno.io/subject: CRD
+  labels:
+    {{ include "observability-policies.labels" . | nindent 4 }}
   name: prevent-prometheus-operator-crd-deletion
 spec:
   admission: true
@@ -16,7 +18,9 @@ spec:
           kinds:
           - CustomResourceDefinition
           names:
-          - "*.monitoring.coreos.com"
+          {{ range .Values.resources }}
+          - {{ . | quote }}
+          {{ end }}
     name: prevent-prometheus-operator-crd-deletion
     validate:
       message: "This resource is preventing prometheus-operator CRDs deletion."

@@ -1,0 +1,22 @@
+{{- if not .Values.disabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    {{ include "observability-policies.labels" . | nindent 4 }}
+    rbac.kyverno.io/aggregate-to-admission-controller: "true"
+  name: kyverno:observability:prevent-prometheus-operator-crd-deletion
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  resourceNames:
+  {{ range .Values.resources }}
+  - {{ . | quote }}
+  {{ end }}
+  verbs:
+  - get
+  - list
+  - watch
+{{- end }}
