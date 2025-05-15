@@ -1,4 +1,4 @@
-disabled: false
+enabled: true
 resources:
   - alertmanagerconfigs.monitoring.coreos.com
   - alertmanagers.monitoring.coreos.com

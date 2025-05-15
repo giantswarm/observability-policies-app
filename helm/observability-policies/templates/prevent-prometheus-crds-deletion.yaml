@@ -1,4 +1,4 @@
-{{- if not .Values.disabled }}
+{{- if .Values.enabled }}
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
