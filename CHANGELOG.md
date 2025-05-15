@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add Cluster Role to allow latest Kyverno versions to work (https://github.com/giantswarm/giantswarm/issues/33416)
+- Switch `.Values.disabled` to `.Values.enabled` to follow best practices.
 
 ## [0.0.1] - 2024-07-30
 
