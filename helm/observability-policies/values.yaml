@@ -1,4 +1,6 @@
-disabled: false
+# If true, all resources defined by this chart will be enabled.
+enabled: true
+# A list of CustomResourceDefinition names to be protected from deletion.
 resources:
   - alertmanagerconfigs.monitoring.coreos.com
   - alertmanagers.monitoring.coreos.com

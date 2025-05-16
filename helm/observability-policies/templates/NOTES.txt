@@ -1,0 +1,33 @@
+{{- if .Values.enabled }}
+The {{ .Chart.Name }} chart has been deployed.
+
+This chart installs Kyverno policies to prevent the accidental deletion of critical CustomResourceDefinitions (CRDs) related to observability.
+
+Protected CRDs:
+{{- range .Values.resources }}
+- {{ . }}
+{{- end }}
+
+To verify the policies:
+1. Ensure Kyverno is running in your cluster.
+2. Try to delete one of the protected CRDs. The operation should be blocked by Kyverno.
+   For example:
+   kubectl delete crd prometheuses.monitoring.coreos.com (if 'prometheuses.monitoring.coreos.com' is in your values.yaml)
+
+   You should see an error message indicating the request was denied by a Kyverno policy.
+
+3. Check the Kyverno policy status:
+   kubectl get cpol -l app.kubernetes.io/instance={{ .Release.Name }}
+   kubectl get clusterpolicy -l app.kubernetes.io/instance={{ .Release.Name }}
+
+   (Note: The label selector might vary slightly based on your exact label setup, but `app.kubernetes.io/instance={{ .Release.Name }}` is common.)
+
+If you need to disable these policies, you can either:
+- Uninstall the chart: helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}
+- Upgrade the chart with 'enabled=false': helm upgrade --install {{ .Release.Name }} {{ .Chart.Name }} --namespace {{ .Release.Namespace }} --set enabled=false
+{{- else }}
+The {{ .Chart.Name }} chart is currently disabled.
+No Kyverno policies have been deployed.
+To enable the policies, reinstall or upgrade the chart with 'enabled=true'.
+helm upgrade --install {{ .Release.Name }} {{ .Chart.Name }} --namespace {{ .Release.Namespace }} --set enabled=true
+{{- end }}
