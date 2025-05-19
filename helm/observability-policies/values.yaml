@@ -1,5 +1,8 @@
+# If true, all resources defined by this chart will be enabled.
 enabled: true
+# A list of CustomResourceDefinition names that should be protected from deletion by the ClusterPolicy.
 resources:
+  # The name of the CustomResourceDefinition to protect.
   - alertmanagerconfigs.monitoring.coreos.com
   - alertmanagers.monitoring.coreos.com
   - podmonitors.monitoring.coreos.com

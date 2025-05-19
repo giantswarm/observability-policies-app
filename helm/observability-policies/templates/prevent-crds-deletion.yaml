@@ -3,8 +3,16 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   annotations:
-    policies.kyverno.io/title: Prevent Prometheus Operator CRDs deletion
+    policies.kyverno.io/category: Observability
+    policies.kyverno.io/description: |
+      This policy prevents the deletion of configured observability CRDs.
+      It is useful to ensure that the CRDs are not accidentally deleted.
+      The policy can be disabled by setting the `enabled` value to `false`.
+      The policy can be configured to allow deletion of specific CRDs by
+      setting the `resources` value to a list of CRDs to allow deletion.
+    policies.kyverno.io/severity: High
     policies.kyverno.io/subject: CRD
+    policies.kyverno.io/title: Prevent Deletion of Configured Observability CRDs
   labels:
     {{ include "observability-policies.labels" . | nindent 4 }}
   name: prevent-prometheus-operator-crd-deletion
@@ -25,7 +33,7 @@ spec:
           {{- end }}
     name: prevent-prometheus-operator-crd-deletion
     validate:
-      message: "This resource is preventing prometheus-operator CRDs deletion."
+      message: "The '{{ .Chart.Name }}-prevent-crd-deletion' policy is active and prevents deletion of configured CRDs."
       deny:
         conditions:
           any:
