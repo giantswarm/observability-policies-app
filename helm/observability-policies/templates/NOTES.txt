@@ -1,7 +1,7 @@
 {{- if .Values.enabled -}}
 The {{ .Chart.Name }} chart has been deployed and the Kyverno policies are active.
 
-Refer to the README.md for more details on verification and configuration.
+Refer to the [README.md](https://github.com/giantswarm/observability-policies-app/blob/main/README.md) for more details on verification and configuration.
 {{- else -}}
 The {{ .Chart.Name }} chart is currently disabled. No Kyverno policies have been deployed.
 
