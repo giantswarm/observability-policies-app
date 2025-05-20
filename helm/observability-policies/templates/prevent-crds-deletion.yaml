@@ -15,7 +15,7 @@ metadata:
     policies.kyverno.io/title: Prevent Deletion of Configured Observability CRDs
   labels:
     {{ include "observability-policies.labels" . | nindent 4 }}
-  name: prevent-prometheus-operator-crd-deletion
+  name: prevent-observability-crds-deletion
 spec:
   admission: true
   background: true
