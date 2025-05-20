@@ -1,6 +1,6 @@
 # Observability Policies App
 
-This application deploys Kyverno policies specifically designed to protect critical CustomResourceDefinitions (CRDs) within your observability stack from accidental deletion.
+This application deploys Kyverno policies specifically designed to protect critical CustomResourceDefinitions (CRDs) within your observability platform from accidental deletion.
 
 ## Motivation
 
