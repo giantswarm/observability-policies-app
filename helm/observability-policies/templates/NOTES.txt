@@ -6,5 +6,5 @@ Refer to the [README.md](https://github.com/giantswarm/observability-policies-ap
 The {{ .Chart.Name }} chart is currently disabled. No Kyverno policies have been deployed.
 
 To enable the policies, reinstall or upgrade the chart with 'enabled=true'.
-Refer to the README.md for more details.
+Refer to the [README.md](https://github.com/giantswarm/observability-policies-app/blob/main/README.md) for more details.
 {{- end }}
