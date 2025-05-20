@@ -53,14 +53,7 @@ helm upgrade --install <release-name> helm/observability-policies --namespace <y
 Once deployed and enabled, you can verify the policies:
 
 1.  **Ensure Kyverno is running in your cluster.**
-2.  **Attempt to delete one of the protected CRDs.** The operation should be blocked by Kyverno.
-    For example, if `prometheuses.monitoring.coreos.com` is listed in your `values.yaml` under `resources`:
-    ```bash
-    kubectl delete crd prometheuses.monitoring.coreos.com
-    ```
-    You should receive an error message indicating the request was denied by a Kyverno policy (e.g., `{{ include "observability-policies.fullname" . }}-prevent-crd-deletion`).
-
-3.  **Check the Kyverno policy status:**
+2.  **Check the Kyverno policy status:**
     You can list the installed cluster policies. The exact label selector might vary based on your Helm release name and common label setup, but `app.kubernetes.io/instance=<release-name>` is a common pattern.
     ```bash
     # Replace <release-name> with the name of your Helm release
@@ -68,6 +61,14 @@ Once deployed and enabled, you can verify the policies:
     # The policy name will be similar to <release-name>-observability-policies-prevent-crd-deletion
     kubectl get clusterpolicy -l app.kubernetes.io/instance=<release-name>
     ```
+
+3.  **Attempt to delete one of the protected CRDs.**
+    Warning: the operation _should_ be blocked by Kyverno. But if the policy does not work, it will allow the removal of the CRD, and you will lose all associated resources.
+    For example, if `prometheuses.monitoring.coreos.com` is listed in your `values.yaml` under `resources`:
+    ```bash
+    kubectl delete crd prometheuses.monitoring.coreos.com
+    ```
+    You should receive an error message indicating the request was denied by a Kyverno policy (e.g., `{{ include "observability-policies.fullname" . }}-prevent-crd-deletion`).
 
 ## Enabling and Disabling Policies
 
