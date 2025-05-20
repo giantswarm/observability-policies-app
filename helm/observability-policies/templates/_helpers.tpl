@@ -19,12 +19,11 @@ Common labels
 */}}
 {{- define "observability-policies.labels" -}}
 helm.sh/chart: {{ include "observability-policies.chart" . }}
-application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+app.kubernetes.io/name: {{ include "observability-policies.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-{{- if .Values.releaseLabel }}
-release: {{ .Release.Name }}
-{{- end }}
+application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- end }}
