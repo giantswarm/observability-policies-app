@@ -5,6 +5,7 @@ metadata:
   labels:
     {{ include "observability-policies.labels" . | nindent 4 }}
     rbac.kyverno.io/aggregate-to-admission-controller: "true"
+    rbac.kyverno.io/aggregate-to-reports-controller: "true"
   name: kyverno:observability:prevent-crds-deletion
 rules:
 - apiGroups:
