@@ -12,12 +12,6 @@ rules:
   - apiextensions.k8s.io
   resources:
   - customresourcedefinitions
-  {{- if .Values.resources }}
-  resourceNames:
-  {{- range .Values.resources }}
-  - {{ . | quote }}
-  {{- end }}
-  {{- end }}
   verbs:
   - get
   - list
