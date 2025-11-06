@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Missing RBAC for kyverno-report-controller
+
 ## [0.0.2] - 2025-05-20
 
 ### Changed

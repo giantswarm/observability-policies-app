@@ -5,18 +5,13 @@ metadata:
   labels:
     {{ include "observability-policies.labels" . | nindent 4 }}
     rbac.kyverno.io/aggregate-to-admission-controller: "true"
+    rbac.kyverno.io/aggregate-to-reports-controller: "true"
   name: kyverno:observability:prevent-crds-deletion
 rules:
 - apiGroups:
   - apiextensions.k8s.io
   resources:
   - customresourcedefinitions
-  {{- if .Values.resources }}
-  resourceNames:
-  {{- range .Values.resources }}
-  - {{ . | quote }}
-  {{- end }}
-  {{- end }}
   verbs:
   - get
   - list
